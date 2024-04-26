@@ -1,17 +1,24 @@
 import React from 'react'
 import '../Homepage/Homepage.scss';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import { useTypewriter } from 'react-simple-typewriter'
 
 function Homepage() {
+
+  const [text] = useTypewriter({
+    words: ['घर', 'ঘর', 'ಮನೆ', 'வீடு'],
+    loop: 0
+  })
+
+
   return (
     <div className='homepage'>
       <div className="textContainer">
         <div className="wrapper">
-          <h1 className='title'>Find Real estate and Get Your Dream Place</h1>
+          <h1 className='title'>Discover Your <br /> Dream {text} <br /> with PrimeEstate </h1>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Ipsum magni obcaecati debitis itaque hic quasi quia repellat quam suscipit corrupti ex, magnam
-            maiores excepturi esse facere earum recusandae, dolor architecto?
+          Welcome to PrimeEstates - where dreams meet reality! Explore our curated collection of homes tailored to your desires. 
+          Begin your journey with us today!
           </p>
           <SearchBar />
           <div className="boxes">
