@@ -6,6 +6,7 @@ import {
   
 } from "react-router-dom";
 import Homepage from './pages/Homepage/Homepage';
+import SinglePage from './pages/SinglePage/SinglePage';
 
 function App() {
 
@@ -22,6 +23,10 @@ function App() {
           {
             path: "list",
             element: <Listpage/>
+          },
+          {
+            path: "/:id",
+            element: <SinglePage/>
           }
 
         ]
