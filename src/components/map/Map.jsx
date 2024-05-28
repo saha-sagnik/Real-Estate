@@ -4,6 +4,10 @@ import "leaflet/dist/leaflet.css";
 import Pin from '../pin/Pin';
 
 function Map({items}){
+  if (!Array.isArray(items)) {
+    // Render an error message or fallback content
+    return <div>Error: Items data is not an array.</div>;
+  }
   return (
     <MapContainer center={[52.4797, -1.90269]} zoom={7} scrollWheelZoom={false} className='map'>
     <TileLayer

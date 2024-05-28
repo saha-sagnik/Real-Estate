@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Homepage from './pages/Homepage/Homepage';
 import SinglePage from './pages/SinglePage/SinglePage';
+import ProfilePage from '../src/pages/profilePage/ProfilePage';
 
 function App() {
 
@@ -27,6 +28,10 @@ function App() {
           {
             path: "/:id",
             element: <SinglePage/>
+          },
+          {
+            path: "/profile",
+           element: <ProfilePage/>
           }
 
         ]
