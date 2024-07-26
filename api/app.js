@@ -1,37 +1,16 @@
 import express from "express";
+import postRoute from "./routes/post.route.js";
+import authRoute from "./routes/auth.route.js";
+import cookieParser from "cookie-parser"
 
 const app = express();
 
-app.use("/api/test", (req, res) => {
-  res.send("Hello");
-});
+app.use(express.json()); // Corrected to call express.json as a function
 
-app.use("/api/auth/register", (req, res) => {
-    res.send("Hello");
-  });
+app.use("/api/posts", postRoute);
+app.use("/api/auth", authRoute); // Corrected to use app.use for the authRoute
 
-app.use("/api/auth/login", (req,res)=>{
-    res.send("Hello");
-})
-
-app.use("/api/posts/logout",(req,res)=>{
-    res.send("Hello");
-})
-
-app.use("/api/posts/", (req, res) => {
-    res.send("Hello");
-  });
-
-// get command
-
-  app.use("/api/posts/", (req, res) => {
-    res.send("Hello");
-  });
-
-  app.use("/api/posts/1234", (req, res) => {
-    res.send("Hello");
-  });
-
+console.log("test2");
 
 app.listen(8800, () => {
   console.log("Server is running on port 8800");
