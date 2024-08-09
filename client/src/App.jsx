@@ -8,6 +8,9 @@ import {
 import Homepage from './pages/Homepage/Homepage';
 import SinglePage from './pages/SinglePage/SinglePage';
 import ProfilePage from '../src/pages/profilePage/ProfilePage';
+import Register from './pages/register/Register';
+import Login from './pages/Login/Login';
+
 
 function App() {
 
@@ -32,6 +35,14 @@ function App() {
           {
             path: "/profile",
            element: <ProfilePage/>
+          },
+          {
+            path: "/register",
+            element: <Register/>
+          },
+          {
+            path: "/login",
+            element: <Login/>
           }
 
         ]

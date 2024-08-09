@@ -1,17 +1,28 @@
 import express from "express";
+import cors from "cors";
 import postRoute from "./routes/post.route.js";
 import authRoute from "./routes/auth.route.js";
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
 
+
+// Initialize express app
 const app = express();
 
-app.use(express.json()); // Corrected to call express.json as a function
+// CORS Middleware
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Set this to the URL of your frontend
+  credentials: true, // Allows sending cookies with requests
+}));
 
+// Middleware for parsing JSON bodies and cookies
+app.use(express.json()); // Ensure JSON body parsing is set up
+app.use(cookieParser());  // Enable cookie parsing
+
+// Routes
 app.use("/api/posts", postRoute);
-app.use("/api/auth", authRoute); // Corrected to use app.use for the authRoute
+app.use("/api/auth", authRoute);
 
-console.log("test2");
-
+// Start the server
 app.listen(8800, () => {
   console.log("Server is running on port 8800");
 });
