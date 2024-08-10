@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import "./Login.scss";
 import { Link, useNavigate } from 'react-router-dom';
 import apiRequest from '../../lib/apiRequest';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { updateUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,16 +21,12 @@ function Login() {
     const password = formData.get("password");
 
     try {
-      const res = await apiRequest.post("/auth/login", { // Corrected to use login endpoint
-        username,
-        password
-      });
-      localStorage.setItem("user",JSON.stringify(res.data))
+      const res = await apiRequest.post("/auth/login", { username, password });
+      updateUser(res.data);
       navigate("/");
-      //console.log(res.data); // Handle the response (e.g., save token, redirect user)
     } catch (err) {
       console.log(err);
-      setError("Login failed. Please check your credentials."); // Set error message
+      setError("Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +42,7 @@ function Login() {
           <button disabled={loading} type="submit">Login</button>
           <Link to="/register">{"Don't"} you have an account?</Link>
         </form>
-        {error && <p className="error">{error}</p>} {/* Display error if exists */}
+        {error && <p className="error">{error}</p>}
       </div>
       <div className="imgContainer">
         <img src="/bg.png" alt="Background" />

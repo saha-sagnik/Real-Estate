@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../Homepage/Homepage.scss';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useTypewriter } from 'react-simple-typewriter'
+import { AuthContext } from '../../context/AuthContext';
 
 function Homepage() {
+
+  const {currentUser} = useContext(AuthContext);
+  //console.log(currentUser)
 
   const [text] = useTypewriter({
     words: ['घर', 'ঘর', 'ಮನೆ', 'வீடு'],
