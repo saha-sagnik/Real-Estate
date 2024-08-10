@@ -1,18 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react';
 import './profileUpdate.scss';
-import { useState } from 'react';;
 import { AuthContext } from '../../context/AuthContext';
+import apiRequest from '../../lib/apiRequest.js';
+import UploadWidget from '../../components/uploadWidget/UploadWidget.jsx';
 
 function ProfileUpdatePage() {
+  const [error, setError] = useState("");
+  const { currentUser, updateUser } = useContext(AuthContext);
+  const user = currentUser?.message?.userInfo;
+  const [avatar, setAvatar] = useState(user?.avatar || "");
 
-const {currentUser,updateUser} = useContext(AuthContext);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { username, email, password } = Object.fromEntries(formData);
 
-const user = currentUser?.message?.userInfo;
+    try {
+      const res = await apiRequest.put(`/users/${currentUser.id}`, { username, email, password, avatar });
+      updateUser(res.data);
+    } catch (error) {
+      console.log("Update error:", error.response ? error.response.data : error.message);
+      setError(error.response ? error.response.data.message : "An error occurred");
+    }
+  };
 
   return (
     <div className="profileUpdatePage">
       <div className="formContainer">
-        <form onSubmit="">
+        <form onSubmit={handleSubmit}>
           <h1>Update Profile</h1>
           <div className="item">
             <label htmlFor="username">Username</label>
@@ -20,7 +35,7 @@ const user = currentUser?.message?.userInfo;
               id="username"
               name="username"
               type="text"
-              defaultValue={user.username}
+              defaultValue={user?.username || ""}
             />
           </div>
           <div className="item">
@@ -29,7 +44,7 @@ const user = currentUser?.message?.userInfo;
               id="email"
               name="email"
               type="email"
-              defaultValue={user.email}
+              defaultValue={user?.email || ""}
             />
           </div>
           <div className="item">
@@ -37,15 +52,24 @@ const user = currentUser?.message?.userInfo;
             <input id="password" name="password" type="password" />
           </div>
           <button>Update</button>
-          {/* <span>error</span> */}
+          {error && <span>{error}</span>}
         </form>
       </div>
       <div className="sideContainer">
-        <img src={ user.avatar || "/noavatar.png"} alt="" className="avatar" />
-      
+        <img src={avatar || "/noavatar.png"} alt="" className="avatar" />
+        <UploadWidget
+          uwConfig={{
+            cloudName: "rittu14",
+            uploadPreset: "PrimeEstate",
+            multiple: false,
+            maxImageFileSize: 2000000,
+            folder: "avatars",
+          }}
+          setState={setAvatar}
+        />
       </div>
     </div>
-  )
+  );
 }
 
-export default ProfileUpdatePage
+export default ProfileUpdatePage;

@@ -1,18 +1,20 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-    const token = req.cookies.token;
-
+    const token = req.cookies.access_token;
     if (!token) {
-        return res.status(401).json({ message: "Not Authenticated!" });
+        console.log("No token found");
+        return res.status(401).json({ message: "Not authenticated!" });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (error, payload) => {
-        if (error) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            console.log("Token verification failed:", err.message);
             return res.status(403).json({ message: "Token is not valid!" });
         }
-
-        req.userId = payload.id; // Attach userId to the request object
-        next(); // Pass control to the next middleware or route handler
+        req.userId = user.id;
+        console.log("User ID from token:", req.userId);
+        next();
     });
 };
+

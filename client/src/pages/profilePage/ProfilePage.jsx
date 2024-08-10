@@ -24,7 +24,7 @@ function profilePage() {
       console.log(error);
     }
   }
-  const user = currentUser?.message?.userInfo;
+  const user = currentUser?.message?.userInfo || {};
 
   return (  
     <div className="profilePage">
@@ -45,10 +45,10 @@ function profilePage() {
               />
             </span>
             <span>
-              Username: <b>{user .username}</b>
+              Username: <b>{user.username}</b>
             </span>
             <span>
-              E-mail: <b>{user .email}</b>
+              E-mail: <b>{user.email}</b>
             </span>
             <button onClick={handleLogout}>Logout</button>
           </div>
