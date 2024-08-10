@@ -7,11 +7,11 @@ import { AuthContext } from '../../context/AuthContext';
 function Navbar() {
 
   // Temporarily hard-code for debugging
-const dummyUser = { username: "madhuri", avatar: "/noavatar.jpeg" };
+//const dummyUser = { username: "madhuri", avatar: "/noavatar.jpeg" };
 
 
   const {currentUser} = useContext(AuthContext);
-  console.log("Current User in Navbar:", currentUser);
+  //console.log("Current User in Navbar:", currentUser);
 
 
   const [open, setopen] = useState(false)
@@ -43,8 +43,8 @@ const dummyUser = { username: "madhuri", avatar: "/noavatar.jpeg" };
         </Link>
       </div>) 
       : 
-      (<><a href="/">SignIn</a>
-      <a href="/" className='register'>
+      (<><a href="/login">SignIn</a>
+      <a href="/register" className='register'>
         SignUp
         </a></>)}
       <div className="menuIcon">
