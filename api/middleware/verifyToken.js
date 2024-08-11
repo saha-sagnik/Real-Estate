@@ -1,7 +1,12 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const verifyToken = (req, res, next) => {
-    const token = req.cookies.access_token;
+    const token = req.cookies.token;
+    console.log("Token from cookies inside verifyToken",token);
+    
     if (!token) {
         console.log("No token found");
         return res.status(401).json({ message: "Not authenticated!" });

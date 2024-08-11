@@ -6,7 +6,7 @@ export const shouldBeLoggedIn = async (req, res) => {
   if (!token)
     return res.status(401).json({ message: "Not Authenticated!" });
 
-  jwt.verify(token, process.env.JWT_SECRET_KEY, async (error, payload) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (error, payload) => {
     if (error)
       return res.status(403).json({ message: "Token is not valid!" });
 
@@ -20,7 +20,7 @@ export const shouldBeAdmin = async (req, res) => {
   if (!token)
     return res.status(401).json({ message: "Not Authenticated!" });
 
-  jwt.verify(token, process.env.JWT_SECRET_KEY, async (error, payload) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (error, payload) => {
     if (error)
       return res.status(403).json({ message: "Token is not valid!" });
 
