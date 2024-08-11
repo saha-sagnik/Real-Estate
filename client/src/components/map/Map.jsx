@@ -1,24 +1,30 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
-import './Map.scss'
+import { MapContainer, TileLayer } from "react-leaflet";
+import "./Map.scss";
 import "leaflet/dist/leaflet.css";
-import Pin from '../pin/Pin';
+import Pin from "../pin/Pin";
 
-function Map({items}){
-  if (!Array.isArray(items)) {
-    // Render an error message or fallback content
-    return <div>Error: Items data is not an array.</div>;
-  }
+function Map({ items }) {
   return (
-    <MapContainer center={[52.4797, -1.90269]} zoom={7} scrollWheelZoom={false} className='map'>
-    <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-    {items.map(item=>(
-      <Pin item={item} key={item.id}/>
-    ))}
-  </MapContainer>
-  )
+    <MapContainer
+      center={
+        items.length === 1
+          ? [items[0].latitude, items[0].longitude]
+          : [12.308620828633575, 76.66589766556945]
+          
+      }
+      zoom={7}
+      scrollWheelZoom={false}
+      className="map"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {items.map((item) => (
+        <Pin item={item} key={item.id} />
+      ))}
+    </MapContainer>
+  );
 }
 
-export default Map
+export default Map;

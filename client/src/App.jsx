@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import { Layout, RequireAuth } from './pages/layout/Layout.jsx';
 import ProfileUpdatePage from './pages/ProfileUpdatePage/ProfileUpdatePage.jsx'
 import AddPage from '../src/pages/newPostPage/newPostPage.jsx'
+import { singlePageLoader } from './lib/loaders.js';
 
 function App() {
   const router = createBrowserRouter([
@@ -29,6 +30,7 @@ function App() {
         {
           path: "/:id",
           element: <SinglePage />,
+          loader: singlePageLoader
         },
         {
           path: "/register",
